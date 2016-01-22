@@ -8,15 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
-FOUNDATION_EXPORT NSString *const kFAOBD2PIDMassAirFlow;
+/*FOUNDATION_EXPORT NSString *const kFAOBD2PIDMassAirFlow;
 FOUNDATION_EXPORT NSString *const kFAOBD2PIDFuelFlow;
+FOUNDATION_EXPORT NSString *const kFAOBD2PIDAirIntakeTemperature;*/
+
 FOUNDATION_EXPORT NSString *const kFAOBD2PIDVehicleRPM;
 FOUNDATION_EXPORT NSString *const kFAOBD2PIDVehicleSpeed;
 FOUNDATION_EXPORT NSString *const kFAOBD2PIDDataUpdatedNotification;
 FOUNDATION_EXPORT NSString *const kFAOBD2PIDVehicleFuelLevel;
 FOUNDATION_EXPORT NSString *const kFAOBD2PIDAmbientAirTemperature;
 FOUNDATION_EXPORT NSString *const kFAOBD2PIDEngineCoolantTemperature;
-FOUNDATION_EXPORT NSString *const kFAOBD2PIDAirIntakeTemperature;
+
 FOUNDATION_EXPORT NSString *const kFAOBD2PIDControlModuleVoltage;
 
 @interface FAOBD2Communicator : NSObject

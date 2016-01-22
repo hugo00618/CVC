@@ -41,13 +41,27 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CVC/GaugeViewController.swift"
-            timestampString = "475025909.5411"
+            filePath = "CVC/FAOBD2Communicator.h"
+            timestampString = "475122318.276916"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
-            landmarkName = "pinDataDidUpdate(_:)"
+            startingLineNumber = "22"
+            endingLineNumber = "22">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CVC/FAOBD2Communicator.m"
+            timestampString = "475121625.214237"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
+            landmarkName = "-streamPIDs"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

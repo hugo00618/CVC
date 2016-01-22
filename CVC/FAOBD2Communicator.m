@@ -12,14 +12,15 @@
 
 #import "FAOBD2Communicator.h"
 
-NSString *const kFAOBD2PIDMassAirFlow              = @"10";
+/*NSString *const kFAOBD2PIDMassAirFlow              = @"10";
 NSString *const kFAOBD2PIDFuelFlow = @"kFAOBD2PIDFuelFlow"; //Calculated
+NSString *const kFAOBD2PIDAirIntakeTemperature     = @"0F";*/
+
 NSString *const kFAOBD2PIDVehicleRPM               = @"0C";
 NSString *const kFAOBD2PIDVehicleSpeed             = @"0D";
 NSString *const kFAOBD2PIDVehicleFuelLevel         = @"2F";
 NSString *const kFAOBD2PIDAmbientAirTemperature    = @"46";
 NSString *const kFAOBD2PIDEngineCoolantTemperature = @"05";
-NSString *const kFAOBD2PIDAirIntakeTemperature     = @"0F";
 NSString *const kFAOBD2PIDControlModuleVoltage     = @"42";
 
 NSString *const kFAOBD2PIDDataUpdatedNotification = @"kFAOBD2PIDDataUpdatedNotification";
@@ -64,7 +65,7 @@ NSString *const kFAOBD2PIDDataUpdatedNotification = @"kFAOBD2PIDDataUpdatedNotif
     if (self) {
         self.readyToSend = YES;
         
-        self.sensorPIDsToScan = @[kFAOBD2PIDMassAirFlow, kFAOBD2PIDVehicleRPM, kFAOBD2PIDVehicleSpeed, kFAOBD2PIDVehicleFuelLevel, kFAOBD2PIDEngineCoolantTemperature, kFAOBD2PIDAmbientAirTemperature, kFAOBD2PIDAirIntakeTemperature, kFAOBD2PIDControlModuleVoltage];
+        self.sensorPIDsToScan = @[kFAOBD2PIDVehicleRPM, kFAOBD2PIDVehicleSpeed, kFAOBD2PIDVehicleFuelLevel, kFAOBD2PIDEngineCoolantTemperature, kFAOBD2PIDAmbientAirTemperature, kFAOBD2PIDControlModuleVoltage];
         //self.sensorPIDsToScan = @[kFAOBD2PIDEngineCoolantTemperature];
         self.currentPIDIndex =  0;
         
@@ -140,7 +141,7 @@ NSString *const kFAOBD2PIDDataUpdatedNotification = @"kFAOBD2PIDDataUpdatedNotif
 - (void)streamPIDs
 {
 
-    self.pidsTimer = [NSTimer timerWithTimeInterval:0.1 target:self selector:@selector(askForPIDs) userInfo:nil repeats:YES];
+    self.pidsTimer = [NSTimer timerWithTimeInterval:0.0 target:self selector:@selector(askForPIDs) userInfo:nil repeats:YES];
     
     [[NSRunLoop currentRunLoop] addTimer:self.pidsTimer forMode:NSDefaultRunLoopMode];
 }
@@ -256,13 +257,13 @@ NSString *const kFAOBD2PIDDataUpdatedNotification = @"kFAOBD2PIDDataUpdatedNotif
             [byteValues addObject:[NSNumber numberWithInt:dataValue]];
         }
         
-        if ([responseSensorID isEqualToString:kFAOBD2PIDMassAirFlow]) {
+        /*if ([responseSensorID isEqualToString:kFAOBD2PIDMassAirFlow]) {
             float maf = (([byteValues[0] intValue] * 256.0 ) + [byteValues[1] intValue]) / 100.0;
             float gph = maf * 0.0805;
             
             [[NSNotificationCenter defaultCenter] postNotificationName:kFAOBD2PIDDataUpdatedNotification object:@{@"sensor":kFAOBD2PIDMassAirFlow, @"value":[NSNumber numberWithDouble:maf]}];
             [[NSNotificationCenter defaultCenter] postNotificationName:kFAOBD2PIDDataUpdatedNotification object:@{@"sensor":kFAOBD2PIDFuelFlow, @"value":[NSNumber numberWithDouble:gph]}];
-        } else if ([responseSensorID isEqualToString:kFAOBD2PIDVehicleRPM] ) {
+        } else */if ([responseSensorID isEqualToString:kFAOBD2PIDVehicleRPM] ) {
             float rpm = ([byteValues[0] intValue] * 256.0 + [byteValues[1] intValue]) / 4.0;
             
             [[NSNotificationCenter defaultCenter] postNotificationName:kFAOBD2PIDDataUpdatedNotification object:@{@"sensor":kFAOBD2PIDVehicleRPM, @"value":[NSNumber numberWithDouble:rpm]}];
@@ -278,11 +279,11 @@ NSString *const kFAOBD2PIDDataUpdatedNotification = @"kFAOBD2PIDDataUpdatedNotif
             float airTemp = ([byteValues[0] intValue] - 40 );
             
             [[NSNotificationCenter defaultCenter] postNotificationName:kFAOBD2PIDDataUpdatedNotification object:@{@"sensor":kFAOBD2PIDAmbientAirTemperature, @"value":[NSNumber numberWithDouble:airTemp]}];
-        }else if ([responseSensorID isEqualToString:kFAOBD2PIDAirIntakeTemperature] ) {
+        }/*else if ([responseSensorID isEqualToString:kFAOBD2PIDAirIntakeTemperature] ) {
             float intakeTemp = ([byteValues[0] intValue] - 40 );
             
             [[NSNotificationCenter defaultCenter] postNotificationName:kFAOBD2PIDDataUpdatedNotification object:@{@"sensor":kFAOBD2PIDAirIntakeTemperature, @"value":[NSNumber numberWithDouble:intakeTemp]}];
-        }else if ([responseSensorID isEqualToString:kFAOBD2PIDControlModuleVoltage] ) {
+        }*/else if ([responseSensorID isEqualToString:kFAOBD2PIDControlModuleVoltage] ) {
             float voltage = (([byteValues[0] intValue] * 256.0 ) + [byteValues[1] intValue]) / 1000.0;
             
             [[NSNotificationCenter defaultCenter] postNotificationName:kFAOBD2PIDDataUpdatedNotification object:@{@"sensor":kFAOBD2PIDControlModuleVoltage, @"value":[NSNumber numberWithDouble:voltage]}];

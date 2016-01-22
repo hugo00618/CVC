@@ -33,12 +33,13 @@ class GaugeViewController: UIViewController {
     
     let NEEDLE_ON_DURATION = 0.3
     let GAUGE_SWEEP_DURATION = 0.8 // one-way
-    let GAUGE_UPDATE_DURATION = 0.3
+    let GAUGE_UPDATE_DURATION = 0.15
     let GAUGE_OFF_DURATION = 0.5
     
     let KEY_SWEEP = 1
     let KEY_SWEEP_BACK = 2
     
+    var ignitionOn = false
     var curRPM = Double(0)
     
     override func viewDidLoad() {
@@ -48,9 +49,18 @@ class GaugeViewController: UIViewController {
         slider_speedometer.addTarget(self, action: "selectSpeed:", forControlEvents: UIControlEvents.ValueChanged)
         slider_tachometer.addTarget(self, action: "selectRPM:", forControlEvents: UIControlEvents.ValueChanged)
         switch_ignition.addTarget(self, action: "toggleIgnition:", forControlEvents: UIControlEvents.ValueChanged)
+        slider_speedometer.alpha = 0
+        slider_tachometer.alpha = 0
+        switch_ignition.alpha = 0
+        
+        let allPaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        let documentsDirectory = allPaths.first!
+        let pathForLog = documentsDirectory.stringByAppendingString("/test_" + String(NSDate(timeIntervalSince1970: NSDate().timeIntervalSince1970)) + ".txt")
+        freopen(pathForLog.cStringUsingEncoding(NSASCIIStringEncoding)!, "a+", stderr)
+        
+        NSLog("Initialized")
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "pinDataDidUpdate:", name: kFAOBD2PIDDataUpdatedNotification, object: nil)
-        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -68,20 +78,43 @@ class GaugeViewController: UIViewController {
         } else {
         gaugeOff();
         }*/
+        
         rotate(img_needleLeft, degree: -45)
         rotate(img_needleRight, degree: -15)
         gaugeOff()
-       
+        
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        /*while (curRPM == 0) {
-            NSLog("connecting...")
-            FAOBD2Communicator.sharedInstance().startStreaming()
-        }
-        gaugeOnAnim()*/
+        NSLog("connecting")
+        FAOBD2Communicator.sharedInstance().startStreaming()
+        
+        let qualityOfServiceClass = QOS_CLASS_BACKGROUND
+        let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
+        dispatch_async(backgroundQueue, {
+            //while (true) {
+            //while (self.curRPM == 0) {
+            
+            //  if (self.ignitionOn) {
+            //    self.ignitionOn = false
+            //  self.gaugeOffAnim()
+            //}
+            
+            //}
+            //if (!self.ignitionOn) {
+            //    self.ignitionOn = true
+            //  self.gaugeOnAnim()
+            //}
+            //}
+            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                
+            })
+        })
+        
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -106,12 +139,16 @@ class GaugeViewController: UIViewController {
     */
     
     func pinDataDidUpdate(notification: NSNotification) {
+        if (!ignitionOn) {
+            NSLog("connected")
+            gaugeOnAnim()
+        }
         var sensor = notification.object?["sensor"] as! String
         if (sensor  == kFAOBD2PIDVehicleRPM) {
-            NSLog("RPM: " + (notification.object?["value"] as! String))
+            NSLog("RPM: " + String(notification.object?["value"] as! Double))
             updateRPM(notification.object?["value"] as! Double)
         } else if (sensor == kFAOBD2PIDVehicleSpeed) {
-            NSLog("Speed: " + (notification.object?["value"] as! String))
+            NSLog("Speed: " + String(notification.object?["value"] as! Int))
             updateSpeed(notification.object?["value"] as! Int)
         }
         
@@ -119,6 +156,7 @@ class GaugeViewController: UIViewController {
     
     func gaugeOffAnim() {
         UIView.animateWithDuration(GAUGE_OFF_DURATION, animations: {
+            self.ignitionOn = false
             self.gaugeOff()
         })
     }
@@ -152,6 +190,7 @@ class GaugeViewController: UIViewController {
     
     func gaugeOnAnim() {
         UIView.animateWithDuration(NEEDLE_ON_DURATION, animations: {
+            self.ignitionOn = true
             self.img_frameLeft.alpha = 0.65
             self.img_pivotLeft.alpha = 0.825
             self.img_needleLeft.alpha = 1
@@ -167,8 +206,6 @@ class GaugeViewController: UIViewController {
     
     func toggleIgnition(sender: UISwitch) {
         if (sender.on) {
-            NSLog("connecting...")
-            FAOBD2Communicator.sharedInstance().startStreaming()
             gaugeOnAnim()
         } else {
             gaugeOffAnim()
@@ -225,7 +262,6 @@ class GaugeViewController: UIViewController {
     
     func updateRPM(newRPM: Double) {
         curRPM = newRPM
-        NSLog(String(newRPM))
         var rotateDeg = newRPM / 8000.0 * 240 - 45
         animateRotate(img_needleLeft, degree: rotateDeg, duration: GAUGE_UPDATE_DURATION)
     }

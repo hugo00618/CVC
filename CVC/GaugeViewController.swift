@@ -7,6 +7,16 @@
 //
 
 import UIKit
+import QuartzCore
+
+let NEEDLE_ON_DURATION = 0.3
+let GAUGE_SWEEP_DURATION = 0.8 // one-way
+let RPM_INIT_DURATION = 0.3
+let GAUGE_UPDATE_DURATION = 0.15
+let GAUGE_OFF_DURATION = 0.5
+
+let KEY_SWEEP = 1
+let KEY_SWEEP_BACK = 2
 
 class GaugeViewController: UIViewController {
     
@@ -31,15 +41,8 @@ class GaugeViewController: UIViewController {
     @IBOutlet weak var label_speed: UILabel!
     @IBOutlet weak var label_gear: UILabel!
     
-    let NEEDLE_ON_DURATION = 0.3
-    let GAUGE_SWEEP_DURATION = 0.8 // one-way
-    let GAUGE_UPDATE_DURATION = 0.15
-    let GAUGE_OFF_DURATION = 0.5
-    
-    let KEY_SWEEP = 1
-    let KEY_SWEEP_BACK = 2
-    
-    var ignitionOn = false
+    var blockUntil = Double(0)
+    var lastUpdated = Double(-1)
     var curRPM = Double(0)
     
     override func viewDidLoad() {
@@ -91,28 +94,25 @@ class GaugeViewController: UIViewController {
         NSLog("connecting")
         FAOBD2Communicator.sharedInstance().startStreaming()
         
-        let qualityOfServiceClass = QOS_CLASS_BACKGROUND
+        /*let qualityOfServiceClass = QOS_CLASS_BACKGROUND
         let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
         dispatch_async(backgroundQueue, {
-            //while (true) {
-            //while (self.curRPM == 0) {
-            
-            //  if (self.ignitionOn) {
-            //    self.ignitionOn = false
-            //  self.gaugeOffAnim()
-            //}
-            
-            //}
-            //if (!self.ignitionOn) {
-            //    self.ignitionOn = true
-            //  self.gaugeOnAnim()
-            //}
-            //}
+            while (true) {
+                while (self.lastUpdated == -1) {
+                    NSLog("connecting")
+                    FAOBD2Communicator.sharedInstance().startStreaming()
+                }
+                if (CACurrentMediaTime() - self.lastUpdated > 1) {
+                    NSLog("connection lost")
+                    self.lastUpdated = -1
+                    self.gaugeOffAnim()
+                }
+            }
             
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 
             })
-        })
+        })*/
         
         
     }
@@ -139,24 +139,40 @@ class GaugeViewController: UIViewController {
     */
     
     func pinDataDidUpdate(notification: NSNotification) {
-        if (!ignitionOn) {
+        if (lastUpdated == -1) {
             NSLog("connected")
+            lastUpdated = CACurrentMediaTime()
             gaugeOnAnim()
+            blockUpdate(NEEDLE_ON_DURATION  + 2 * GAUGE_SWEEP_DURATION)
         }
-        var sensor = notification.object?["sensor"] as! String
-        if (sensor  == kFAOBD2PIDVehicleRPM) {
-            NSLog("RPM: " + String(notification.object?["value"] as! Double))
-            updateRPM(notification.object?["value"] as! Double)
-        } else if (sensor == kFAOBD2PIDVehicleSpeed) {
-            NSLog("Speed: " + String(notification.object?["value"] as! Int))
-            updateSpeed(notification.object?["value"] as! Int)
+        if (!updateBlocked()) {
+            var sensor = notification.object?["sensor"] as! String
+            if (sensor  == kFAOBD2PIDVehicleRPM) {
+                NSLog("RPM: " + String(notification.object?["value"] as! Double))
+                if (curRPM == 0) {
+                updateRPM(notification.object?["value"] as! Double, duration: RPM_INIT_DURATION)
+                } else {
+                    updateRPM(notification.object?["value"] as! Double)
+
+                }
+            } else if (sensor == kFAOBD2PIDVehicleSpeed) {
+                NSLog("Speed: " + String(notification.object?["value"] as! Int))
+                updateSpeed(notification.object?["value"] as! Int)
+            }
         }
-        
+    }
+    
+    func blockUpdate(forSec: Double) {
+        blockUntil = (CACurrentMediaTime() as Double) + forSec
+    }
+    
+    func updateBlocked() -> Bool {
+        return (CACurrentMediaTime() as Double) < blockUntil
     }
     
     func gaugeOffAnim() {
         UIView.animateWithDuration(GAUGE_OFF_DURATION, animations: {
-            self.ignitionOn = false
+            self.lastUpdated = -1
             self.gaugeOff()
         })
     }
@@ -190,7 +206,6 @@ class GaugeViewController: UIViewController {
     
     func gaugeOnAnim() {
         UIView.animateWithDuration(NEEDLE_ON_DURATION, animations: {
-            self.ignitionOn = true
             self.img_frameLeft.alpha = 0.65
             self.img_pivotLeft.alpha = 0.825
             self.img_needleLeft.alpha = 1
@@ -198,8 +213,8 @@ class GaugeViewController: UIViewController {
             self.img_pivotRight.alpha = 0.825
             self.img_needleRight.alpha = 1
             }, completion: { finished in
-                self.animateRotate(self.img_needleLeft, degree: 210, duration: self.GAUGE_SWEEP_DURATION, myValue: self.KEY_SWEEP)
-                self.animateRotate(self.img_needleRight, degree: 210, duration: self.GAUGE_SWEEP_DURATION)
+                self.animateRotate(self.img_needleLeft, degree: 210, duration: GAUGE_SWEEP_DURATION, myValue: KEY_SWEEP)
+                self.animateRotate(self.img_needleRight, degree: 210, duration: GAUGE_SWEEP_DURATION)
         })
         
     }
@@ -260,10 +275,10 @@ class GaugeViewController: UIViewController {
         updateRPM(Double(sender.value))
     }
     
-    func updateRPM(newRPM: Double) {
+    func updateRPM(newRPM: Double, duration: Double = GAUGE_UPDATE_DURATION) {
         curRPM = newRPM
         var rotateDeg = newRPM / 8000.0 * 240 - 45
-        animateRotate(img_needleLeft, degree: rotateDeg, duration: GAUGE_UPDATE_DURATION)
+        animateRotate(img_needleLeft, degree: rotateDeg, duration: duration)
     }
     
     override func animationDidStop(anim: CAAnimation, finished flag: Bool) {

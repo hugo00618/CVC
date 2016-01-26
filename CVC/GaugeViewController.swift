@@ -143,7 +143,7 @@ class GaugeViewController: UIViewController {
             NSLog("connected")
             lastUpdated = CACurrentMediaTime()
             gaugeOnAnim()
-            blockUpdate(NEEDLE_ON_DURATION  + 2 * GAUGE_SWEEP_DURATION)
+            blockUpdate(NEEDLE_ON_DURATION  + 2 * GAUGE_SWEEP_DURATION + RPM_INIT_DURATION)
         }
         if (!updateBlocked()) {
             var sensor = notification.object?["sensor"] as! String
@@ -157,7 +157,7 @@ class GaugeViewController: UIViewController {
                 }
             } else if (sensor == kFAOBD2PIDVehicleSpeed) {
                 NSLog("Speed: " + String(notification.object?["value"] as! Int))
-                updateSpeed(notification.object?["value"] as! Int)
+                updateSpeed(notification.object?["value"] as! Double)
             }
         }
     }
@@ -254,19 +254,19 @@ class GaugeViewController: UIViewController {
     }
     
     func selectSpeed(sender: UISlider) {
-        updateSpeed(Int(sender.value))
+        updateSpeed(Double(sender.value))
     }
     
-    func updateSpeed(newSpeed: Int) {
-        label_speed.text = String(newSpeed)
+    func updateSpeed(newSpeed: Double) {
+        label_speed.text = String(Int(newSpeed))
         
         var rotateDeg: Double = 0
         if (newSpeed <= 80) {
-            rotateDeg = (Double(newSpeed) - 10) / 20 * 30
+            rotateDeg = (newSpeed - 10) / 20 * 30
         } else if (newSpeed <= 160) {
-            rotateDeg = (Double(newSpeed) - 80) / 40 * 30 + 105
+            rotateDeg = (newSpeed - 80) / 40 * 30 + 105
         } else if (newSpeed <= 280) {
-            rotateDeg = (Double(newSpeed) - 160) / 60 * 30 + 165
+            rotateDeg = (newSpeed - 160) / 60 * 30 + 165
         }
         animateRotate(img_needleRight, degree: rotateDeg, duration: GAUGE_UPDATE_DURATION)
     }
@@ -313,7 +313,7 @@ class GaugeViewController: UIViewController {
             break;
         case KEY_SWEEP_BACK:
             usleep(300*1000)
-            updateSpeed(Int(slider_speedometer.value))
+            updateSpeed(Double(slider_speedometer.value))
             updateRPM(Double(slider_tachometer.value))
         default:
             break;

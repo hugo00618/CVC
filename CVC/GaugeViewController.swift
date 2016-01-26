@@ -9,6 +9,8 @@
 import UIKit
 import QuartzCore
 
+let SPEED_CALIBRATION_FACTOR = 1.07
+
 let NEEDLE_ON_DURATION = 0.3
 let GAUGE_SWEEP_DURATION = 0.8 // one-way
 let RPM_INIT_DURATION = 0.3
@@ -258,6 +260,8 @@ class GaugeViewController: UIViewController {
     }
     
     func updateSpeed(newSpeed: Double) {
+        newSpeed *= SPEED_CALIBRATION_FACTOR
+        
         label_speed.text = String(Int(newSpeed))
         
         var rotateDeg: Double = 0

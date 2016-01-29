@@ -16,12 +16,12 @@
 NSString *const kFAOBD2PIDFuelFlow = @"kFAOBD2PIDFuelFlow"; //Calculated
 NSString *const kFAOBD2PIDAirIntakeTemperature     = @"0F";*/
 
-NSString *const kFAOBD2PIDVehicleRPM               = @"0C";
-NSString *const kFAOBD2PIDVehicleSpeed             = @"0D";
-NSString *const kFAOBD2PIDVehicleFuelLevel         = @"2F";
-NSString *const kFAOBD2PIDAmbientAirTemperature    = @"46";
-NSString *const kFAOBD2PIDEngineCoolantTemperature = @"05";
-NSString *const kFAOBD2PIDControlModuleVoltage     = @"42";
+NSString *const PID_COOL_TEMP = @"05";
+NSString *const PID_RPM = @"0C";
+NSString *const PID_SPEED = @"0D";
+NSString *const PID_FUEL_LV = @"2F";
+NSString *const PID_CTRL_MODULE_VOLT = @"42";
+NSString *const PID_AMB_AIR_TEMP = @"46";
 
 NSString *const kFAOBD2PIDDataUpdatedNotification = @"kFAOBD2PIDDataUpdatedNotification";
 
@@ -65,7 +65,7 @@ NSString *const kFAOBD2PIDDataUpdatedNotification = @"kFAOBD2PIDDataUpdatedNotif
     if (self) {
         self.readyToSend = YES;
         
-        self.sensorPIDsToScan = @[kFAOBD2PIDVehicleRPM, kFAOBD2PIDVehicleSpeed, kFAOBD2PIDVehicleFuelLevel, kFAOBD2PIDEngineCoolantTemperature, kFAOBD2PIDAmbientAirTemperature, kFAOBD2PIDControlModuleVoltage];
+        self.sensorPIDsToScan = @[PID_RPM, PID_SPEED, PID_FUEL_LV, PID_COOL_TEMP, PID_AMB_AIR_TEMP, PID_CTRL_MODULE_VOLT];
         //self.sensorPIDsToScan = @[kFAOBD2PIDEngineCoolantTemperature];
         self.currentPIDIndex =  0;
         
@@ -263,34 +263,34 @@ NSString *const kFAOBD2PIDDataUpdatedNotification = @"kFAOBD2PIDDataUpdatedNotif
             
             [[NSNotificationCenter defaultCenter] postNotificationName:kFAOBD2PIDDataUpdatedNotification object:@{@"sensor":kFAOBD2PIDMassAirFlow, @"value":[NSNumber numberWithDouble:maf]}];
             [[NSNotificationCenter defaultCenter] postNotificationName:kFAOBD2PIDDataUpdatedNotification object:@{@"sensor":kFAOBD2PIDFuelFlow, @"value":[NSNumber numberWithDouble:gph]}];
-        } else */if ([responseSensorID isEqualToString:kFAOBD2PIDVehicleRPM] ) {
+        } else */if ([responseSensorID isEqualToString:PID_RPM] ) {
             float rpm = ([byteValues[0] intValue] * 256.0 + [byteValues[1] intValue]) / 4.0;
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:kFAOBD2PIDDataUpdatedNotification object:@{@"sensor":kFAOBD2PIDVehicleRPM, @"value":[NSNumber numberWithDouble:rpm]}];
-        } else if ([responseSensorID isEqualToString:kFAOBD2PIDVehicleSpeed] ) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kFAOBD2PIDDataUpdatedNotification object:@{@"sensor":PID_RPM, @"value":[NSNumber numberWithDouble:rpm]}];
+        } else if ([responseSensorID isEqualToString:PID_SPEED] ) {
             float kmph = [byteValues[0] doubleValue];
     
-            [[NSNotificationCenter defaultCenter] postNotificationName:kFAOBD2PIDDataUpdatedNotification object:@{@"sensor":kFAOBD2PIDVehicleSpeed, @"value":[NSNumber numberWithDouble:kmph]}];
-        }else if ([responseSensorID isEqualToString:kFAOBD2PIDEngineCoolantTemperature] ) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kFAOBD2PIDDataUpdatedNotification object:@{@"sensor":PID_SPEED, @"value":[NSNumber numberWithDouble:kmph]}];
+        }else if ([responseSensorID isEqualToString:PID_COOL_TEMP] ) {
             float coolantTemp = ([byteValues[0] intValue] - 40 );
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:kFAOBD2PIDDataUpdatedNotification object:@{@"sensor":kFAOBD2PIDEngineCoolantTemperature, @"value":[NSNumber numberWithDouble:coolantTemp]}];
-        }else if ([responseSensorID isEqualToString:kFAOBD2PIDAmbientAirTemperature] ) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kFAOBD2PIDDataUpdatedNotification object:@{@"sensor":PID_COOL_TEMP, @"value":[NSNumber numberWithDouble:coolantTemp]}];
+        }else if ([responseSensorID isEqualToString:PID_AMB_AIR_TEMP] ) {
             float airTemp = ([byteValues[0] intValue] - 40 );
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:kFAOBD2PIDDataUpdatedNotification object:@{@"sensor":kFAOBD2PIDAmbientAirTemperature, @"value":[NSNumber numberWithDouble:airTemp]}];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kFAOBD2PIDDataUpdatedNotification object:@{@"sensor":PID_AMB_AIR_TEMP, @"value":[NSNumber numberWithDouble:airTemp]}];
         }/*else if ([responseSensorID isEqualToString:kFAOBD2PIDAirIntakeTemperature] ) {
             float intakeTemp = ([byteValues[0] intValue] - 40 );
             
             [[NSNotificationCenter defaultCenter] postNotificationName:kFAOBD2PIDDataUpdatedNotification object:@{@"sensor":kFAOBD2PIDAirIntakeTemperature, @"value":[NSNumber numberWithDouble:intakeTemp]}];
-        }*/else if ([responseSensorID isEqualToString:kFAOBD2PIDControlModuleVoltage] ) {
+        }*/else if ([responseSensorID isEqualToString:PID_CTRL_MODULE_VOLT] ) {
             float voltage = (([byteValues[0] intValue] * 256.0 ) + [byteValues[1] intValue]) / 1000.0;
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:kFAOBD2PIDDataUpdatedNotification object:@{@"sensor":kFAOBD2PIDControlModuleVoltage, @"value":[NSNumber numberWithDouble:voltage]}];
-        }else if ([responseSensorID isEqualToString:kFAOBD2PIDVehicleFuelLevel] ) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kFAOBD2PIDDataUpdatedNotification object:@{@"sensor":PID_CTRL_MODULE_VOLT, @"value":[NSNumber numberWithDouble:voltage]}];
+        }else if ([responseSensorID isEqualToString:PID_FUEL_LV] ) {
             float fuel = (([byteValues[0] intValue] * 100.0)/255.0);
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:kFAOBD2PIDDataUpdatedNotification object:@{@"sensor":kFAOBD2PIDVehicleFuelLevel, @"value":[NSNumber numberWithDouble:fuel]}];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kFAOBD2PIDDataUpdatedNotification object:@{@"sensor":PID_FUEL_LV, @"value":[NSNumber numberWithDouble:fuel]}];
         }
         
     }else{

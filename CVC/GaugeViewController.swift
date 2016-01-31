@@ -7,8 +7,7 @@
 //
 
 // test:
-// tachometer initialization animation
-// speedometer accuracy
+// speedometer update animation
 
 import UIKit
 import QuartzCore
@@ -252,7 +251,7 @@ class GaugeViewController: UIViewController {
         view.transform = CGAffineTransformMakeRotation(degToRad(degree))
     }
     
-    func animateRotate(view: UIImageView, degree: Double, duration: Double, myValue: Int? = -1) {
+    func animateRotate(view: UIImageView, degree: Double, duration: Double, myValue: Int = -1, timingFunction: String = kCAMediaTimingFunctionEaseInEaseOut) {
         var rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
         
         var origDeg = Double(atan2(view.transform.b, view.transform.a));
@@ -267,7 +266,7 @@ class GaugeViewController: UIViewController {
         rotationAnimation.repeatCount = 1
         rotationAnimation.delegate = self
         
-        rotationAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        rotationAnimation.timingFunction = CAMediaTimingFunction(name: timingFunction)
         rotationAnimation.setValue(myValue, forKey: "rotationAnimation")
         
         view.layer.addAnimation(rotationAnimation, forKey: "rotationAnimation")
@@ -295,7 +294,7 @@ class GaugeViewController: UIViewController {
         
         if (!updateBlocked(PID_SPEED)) {
             blockUpdate(SPEED_GAUGE_UPDATE_DURATION, onPID: PID_SPEED)
-            animateRotate(img_needleRight, degree: rotateDeg, duration: SPEED_GAUGE_UPDATE_DURATION)
+            animateRotate(img_needleRight, degree: rotateDeg, duration: SPEED_GAUGE_UPDATE_DURATION, timingFunction: kCAMediaTimingFunctionLinear)
         }
     }
     

@@ -7,15 +7,38 @@
 //
 
 // test:
-// speedometer update animation
+// gear indicator accuracy
 
 import UIKit
 import QuartzCore
 
+/*
+Vehicle Optimization
+Model: 2010 Volkswagen CC
+Engine: 2.0T
+Gearbox: DQ250 (6-speed DSG)
+Tire size: 235/40R18
+*/
 let SPEED_CALIBRATION_FACTOR = 1.07
+let TIRE_WIDTH: Double = 235
+let TIRE_PROFILE: Double = 40
+let RIM_SIZE: Double = 18
+let GEARBOX_AUTOMATIC = true // inertial gear prediction
+let GEAR_RATIO_1 = 3.46
+let GEAR_RATIO_2 = 2.15
+let GEAR_RATIO_3 = 1.46
+let GEAR_RATIO_4 = 1.08
+let GEAR_RATIO_5 = 1.09
+let GEAR_RATIO_6 = 0.92
+let GEAR_RATIO_FINAL_1 = 4.06
+let GEAR_RATIO_FINAL_2 = 3.14
+let GEAR_RATIOS = [GEAR_RATIO_1, GEAR_RATIO_2, GEAR_RATIO_3, GEAR_RATIO_4, GEAR_RATIO_5, GEAR_RATIO_6]
+
+let WHEEL_CIRCUM_KM = (TIRE_WIDTH * TIRE_PROFILE / 100.0 * 2.0 + RIM_SIZE * 25.4) * pow(10, -6) * M_PI
 
 let PID_ALL = "all"
 
+// animation
 let NEEDLE_ON_DURATION = 0.3
 let GAUGE_SWEEP_DURATION = 0.8 // one-way
 let RPM_INIT_DURATION = 0.3
@@ -51,7 +74,8 @@ class GaugeViewController: UIViewController {
     
     var lastUpdated = Double(-1)
     var curRPM = Double(0)
-    var curGear = 1
+    var curSpeed = Double(0)
+    var curGear: Int = 1
     
     var blockDict = [String: Double]()
     
@@ -96,6 +120,8 @@ class GaugeViewController: UIViewController {
         rotate(img_needleRight, degree: -15)
         gaugeOff()
         
+        label_gear.text = "1"
+        curGear = 1
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -149,14 +175,14 @@ class GaugeViewController: UIViewController {
     */
     
     func pinDataDidUpdate(notification: NSNotification) {
-        var sensor = notification.object?["sensor"] as! String
+        let sensor = notification.object?["sensor"] as! String
         
         if (lastUpdated == -1) {
             NSLog("connected")
             blockUpdate(NEEDLE_ON_DURATION  + 2 * GAUGE_SWEEP_DURATION, onPID: PID_ALL)
             gaugeOnAnim()
         }
-
+        
         lastUpdated = CACurrentMediaTime()
         if (sensor  == PID_RPM) {
             NSLog("RPM: " + String(notification.object?["value"] as! Double))
@@ -181,13 +207,68 @@ class GaugeViewController: UIViewController {
     }
     
     func updateGear() {
-        var curSpeed = label_speed.text as! Int
-        
         if (curSpeed == 0) {
-            curGear = 1
+            label_gear.text = "1"
+        } else {
+            let curTimesFnl = curRPM * 60 * WHEEL_CIRCUM_KM / curSpeed
+            label_gear.text = predictGear(curTimesFnl)
+        }
+    }
+    
+    func predictGear(curTimesFnl: Double) -> String {
+        var mostLikelyGear = -1
+        var closestGearRatioDelta = 100.0
+        
+        if (GEARBOX_AUTOMATIC) {
+            var lowGearDelta, curGearDelta, upGearDelta: Double
+            
+            if (curGear == 1) {
+                lowGearDelta = 100
+            } else if (curGear <= 5) {
+                lowGearDelta = abs(curTimesFnl / GEAR_RATIO_FINAL_1 - GEAR_RATIOS[curGear - 2])
+            } else {
+                lowGearDelta = abs(curTimesFnl / GEAR_RATIO_FINAL_2 - GEAR_RATIOS[curGear - 2])
+            }
+            
+            if (curGear <= 4) {
+                curGearDelta = abs(curTimesFnl / GEAR_RATIO_FINAL_1 - GEAR_RATIOS[curGear - 1])
+            } else {
+                curGearDelta = abs(curTimesFnl / GEAR_RATIO_FINAL_2 - GEAR_RATIOS[curGear - 1])
+            }
+            
+            if (curGear == 6) {
+                upGearDelta = 100
+            } else if (curGear >= 4) {
+                upGearDelta = abs(curTimesFnl / GEAR_RATIO_FINAL_2 - GEAR_RATIOS[curGear])
+            } else {
+                upGearDelta = abs(curTimesFnl / GEAR_RATIO_FINAL_1 - GEAR_RATIOS[curGear])
+            }
+            
+            let minDelta = min(lowGearDelta, curGearDelta, upGearDelta)
+            if (minDelta == lowGearDelta) {
+                mostLikelyGear = curGear - 1
+            } else if (minDelta == curGearDelta) {
+                mostLikelyGear = curGear
+            } else {
+                mostLikelyGear = curGear + 1
+            }
+        } else {
+            for (i, gearRatio) in GEAR_RATIOS.enumerate() {
+                var gearRatioDelta = Double(100)
+                if (i <= 3) {
+                    gearRatioDelta = abs(curTimesFnl / GEAR_RATIO_FINAL_1 - gearRatio)
+                } else {
+                    gearRatioDelta = abs(curTimesFnl / GEAR_RATIO_FINAL_2 - gearRatio)
+                }
+                if (gearRatioDelta < closestGearRatioDelta) {
+                    mostLikelyGear = i + 1
+                    closestGearRatioDelta = gearRatioDelta
+                }
+            }
         }
         
-        label_gear.text = String(curGear)
+        curGear = mostLikelyGear
+        return String(mostLikelyGear)
     }
     
     func gaugeOffAnim() {
@@ -252,7 +333,7 @@ class GaugeViewController: UIViewController {
     }
     
     func animateRotate(view: UIImageView, degree: Double, duration: Double, myValue: Int = -1, timingFunction: String = kCAMediaTimingFunctionEaseInEaseOut) {
-        var rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
         
         var origDeg = Double(atan2(view.transform.b, view.transform.a));
         if (origDeg < -0.5 * M_PI) {
@@ -279,6 +360,7 @@ class GaugeViewController: UIViewController {
     
     func updateSpeed(var newSpeed: Double) {
         newSpeed *= SPEED_CALIBRATION_FACTOR
+        curSpeed = newSpeed
         
         label_speed.text = String(Int(ceil(newSpeed)))
         
@@ -303,16 +385,16 @@ class GaugeViewController: UIViewController {
     }
     
     func updateRPM(newRPM: Double, duration: Double = RPM_GAUGE_UPDATE_DURATION) {
-        label_gear.text = String(Int(newRPM))
         curRPM = newRPM
-        var rotateDeg = newRPM / 8000.0 * 240 - 45
+        let rotateDeg = newRPM / 8000.0 * 240 - 45
         if (!updateBlocked(PID_RPM)) {
             animateRotate(img_needleLeft, degree: rotateDeg, duration: duration)
         }
+        updateGear()
     }
     
     override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
-        var animValue = anim.valueForKey("rotationAnimation") as! Int
+        let animValue = anim.valueForKey("rotationAnimation") as! Int
         
         switch(animValue) {
         case KEY_SWEEP:

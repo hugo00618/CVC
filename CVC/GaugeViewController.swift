@@ -6,9 +6,6 @@
 //  Copyright © 2015 Hugo Yu. All rights reserved.
 //
 
-// test:
-// gear indicator accuracy
-
 import UIKit
 import QuartzCore
 
@@ -25,13 +22,13 @@ let TIRE_PROFILE: Double = 40
 let RIM_SIZE: Double = 18
 let GEARBOX_AUTOMATIC = true // inertial gear prediction
 let GEAR_RATIO_1 = 3.46
-let GEAR_RATIO_2 = 2.15
-let GEAR_RATIO_3 = 1.46
-let GEAR_RATIO_4 = 1.08
-let GEAR_RATIO_5 = 1.09
-let GEAR_RATIO_6 = 0.92
-let GEAR_RATIO_FINAL_1 = 4.06
-let GEAR_RATIO_FINAL_2 = 3.14
+let GEAR_RATIO_2 = 2.05
+let GEAR_RATIO_3 = 1.3
+let GEAR_RATIO_4 = 0.9
+let GEAR_RATIO_5 = 0.91
+let GEAR_RATIO_6 = 0.76
+let GEAR_RATIO_FINAL_1 = 4.12
+let GEAR_RATIO_FINAL_2 = 3.04
 let GEAR_RATIOS = [GEAR_RATIO_1, GEAR_RATIO_2, GEAR_RATIO_3, GEAR_RATIO_4, GEAR_RATIO_5, GEAR_RATIO_6]
 
 let WHEEL_CIRCUM_KM = (TIRE_WIDTH * TIRE_PROFILE / 100.0 * 2.0 + RIM_SIZE * 25.4) * pow(10, -6) * M_PI
@@ -68,6 +65,7 @@ class GaugeViewController: UIViewController {
     @IBOutlet weak var slider_speedometer: UISlider!
     @IBOutlet weak var slider_tachometer: UISlider!
     @IBOutlet weak var switch_ignition: UISwitch!
+    @IBOutlet weak var label_rpm: UILabel!
     
     @IBOutlet weak var label_speed: UILabel!
     @IBOutlet weak var label_gear: UILabel!
@@ -210,60 +208,35 @@ class GaugeViewController: UIViewController {
         if (curSpeed == 0) {
             label_gear.text = "1"
         } else {
-            let curTimesFnl = curRPM * 60 * WHEEL_CIRCUM_KM / curSpeed
+            let curTimesFnl = curRPM * 60 * WHEEL_CIRCUM_KM / curSpeed * SPEED_CALIBRATION_FACTOR
             label_gear.text = predictGear(curTimesFnl)
         }
     }
     
     func predictGear(curTimesFnl: Double) -> String {
-        var mostLikelyGear = -1
-        var closestGearRatioDelta = 100.0
+        var mostLikelyGear:Int = 0
+        var minGearRatioDiff:Double = 100.0
         
+        var i, j: Int
         if (GEARBOX_AUTOMATIC) {
-            var lowGearDelta, curGearDelta, upGearDelta: Double
-            
-            if (curGear == 1) {
-                lowGearDelta = 100
-            } else if (curGear <= 5) {
-                lowGearDelta = abs(curTimesFnl / GEAR_RATIO_FINAL_1 - GEAR_RATIOS[curGear - 2])
-            } else {
-                lowGearDelta = abs(curTimesFnl / GEAR_RATIO_FINAL_2 - GEAR_RATIOS[curGear - 2])
-            }
-            
-            if (curGear <= 4) {
-                curGearDelta = abs(curTimesFnl / GEAR_RATIO_FINAL_1 - GEAR_RATIOS[curGear - 1])
-            } else {
-                curGearDelta = abs(curTimesFnl / GEAR_RATIO_FINAL_2 - GEAR_RATIOS[curGear - 1])
-            }
-            
-            if (curGear == 6) {
-                upGearDelta = 100
-            } else if (curGear >= 4) {
-                upGearDelta = abs(curTimesFnl / GEAR_RATIO_FINAL_2 - GEAR_RATIOS[curGear])
-            } else {
-                upGearDelta = abs(curTimesFnl / GEAR_RATIO_FINAL_1 - GEAR_RATIOS[curGear])
-            }
-            
-            let minDelta = min(lowGearDelta, curGearDelta, upGearDelta)
-            if (minDelta == lowGearDelta) {
-                mostLikelyGear = curGear - 1
-            } else if (minDelta == curGearDelta) {
-                mostLikelyGear = curGear
-            } else {
-                mostLikelyGear = curGear + 1
-            }
+            i = max(curGear-2, 0)
+            j = min(curGear+1, GEAR_RATIOS.count)
         } else {
-            for (i, gearRatio) in GEAR_RATIOS.enumerate() {
-                var gearRatioDelta = Double(100)
-                if (i <= 3) {
-                    gearRatioDelta = abs(curTimesFnl / GEAR_RATIO_FINAL_1 - gearRatio)
-                } else {
-                    gearRatioDelta = abs(curTimesFnl / GEAR_RATIO_FINAL_2 - gearRatio)
-                }
-                if (gearRatioDelta < closestGearRatioDelta) {
-                    mostLikelyGear = i + 1
-                    closestGearRatioDelta = gearRatioDelta
-                }
+            i = 0;
+            j = GEAR_RATIOS.count
+        }
+        
+        for (; i < j; i++) {
+            let curGearRatio = GEAR_RATIOS[i]
+            var curGearRatioDiff:Double = 100.0
+            if (i <= 3) {
+                curGearRatioDiff = abs(curTimesFnl / GEAR_RATIO_FINAL_1 - curGearRatio)
+            } else {
+                curGearRatioDiff = abs(curTimesFnl / GEAR_RATIO_FINAL_2 - curGearRatio)
+            }
+            if (curGearRatioDiff < minGearRatioDiff) {
+                mostLikelyGear = i + 1
+                minGearRatioDiff = curGearRatioDiff
             }
         }
         
@@ -385,6 +358,7 @@ class GaugeViewController: UIViewController {
     }
     
     func updateRPM(newRPM: Double, duration: Double = RPM_GAUGE_UPDATE_DURATION) {
+        label_rpm.text = String(newRPM)
         curRPM = newRPM
         let rotateDeg = newRPM / 8000.0 * 240 - 45
         if (!updateBlocked(PID_RPM)) {

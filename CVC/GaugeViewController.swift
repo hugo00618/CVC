@@ -75,14 +75,6 @@ class GaugeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // DEBUG
-        slider_speedometer.addTarget(self, action: "selectSpeed:", forControlEvents: UIControlEvents.ValueChanged)
-        slider_tachometer.addTarget(self, action: "selectRPM:", forControlEvents: UIControlEvents.ValueChanged)
-        switch_ignition.addTarget(self, action: "toggleIgnition:", forControlEvents: UIControlEvents.ValueChanged)
-        slider_speedometer.alpha = 0
-        slider_tachometer.alpha = 0
-        switch_ignition.alpha = 0
-        
         let allPaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
         let documentsDirectory = allPaths.first!
         let pathForLog = documentsDirectory.stringByAppendingString("/test_" + String(NSDate(timeIntervalSince1970: NSDate().timeIntervalSince1970)) + ".txt")
@@ -353,7 +345,6 @@ class GaugeViewController: UIViewController {
     }
     
     func updateRPM(newRPM: Double, duration: Double = RPM_GAUGE_UPDATE_DURATION) {
-        label_rpm.text = String(newRPM)
         curRPM = newRPM
         let rotateDeg = newRPM / 8000.0 * 240 - 45
         if (!updateBlocked(PID_RPM)) {
@@ -394,8 +385,6 @@ class GaugeViewController: UIViewController {
             break;
         case KEY_SWEEP_BACK:
             usleep(300*1000)
-            updateSpeed(Double(slider_speedometer.value))
-            updateRPM(Double(slider_tachometer.value))
         default:
             break;
         }

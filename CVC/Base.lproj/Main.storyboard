@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="K0P-s0-kvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="K0P-s0-kvc">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -19,7 +19,7 @@
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bVK-x1-5fl" id="EuW-Ag-Bfk">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -280,24 +280,6 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="8" translatesAutoresizingMaskIntoConstraints="NO" id="940-uU-58w">
-                                <rect key="frame" x="0.0" y="-15" width="118" height="31"/>
-                                <variation key="widthClass=regular" fixedFrame="YES">
-                                    <rect key="frame" x="207" y="550" width="118" height="31"/>
-                                </variation>
-                            </slider>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="16s-Uq-kE3">
-                                <rect key="frame" x="-25" y="-15" width="51" height="31"/>
-                                <variation key="widthClass=regular" fixedFrame="YES">
-                                    <rect key="frame" x="433" y="550" width="51" height="31"/>
-                                </variation>
-                            </switch>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="280" translatesAutoresizingMaskIntoConstraints="NO" id="xj0-oL-HLZ">
-                                <rect key="frame" x="0.0" y="-15" width="118" height="31"/>
-                                <variation key="widthClass=regular" fixedFrame="YES">
-                                    <rect key="frame" x="589" y="550" width="118" height="31"/>
-                                </variation>
-                            </slider>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="smallGaugesFrame" translatesAutoresizingMaskIntoConstraints="NO" id="8tF-fn-J0y" userLabel="Img small Gauges Frame">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <constraints>
@@ -314,15 +296,6 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UHx-EA-7xt">
-                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="widthClass=regular" fixedFrame="YES">
-                                    <rect key="frame" x="362" y="560" width="90" height="21"/>
-                                </variation>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -373,11 +346,7 @@
                                 <exclude reference="75i-g9-xEO"/>
                                 <exclude reference="upQ-vf-8j0"/>
                                 <exclude reference="uxu-wH-skz"/>
-                                <exclude reference="940-uU-58w"/>
-                                <exclude reference="16s-Uq-kE3"/>
-                                <exclude reference="xj0-oL-HLZ"/>
                                 <exclude reference="8tF-fn-J0y"/>
-                                <exclude reference="UHx-EA-7xt"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="6xa-Kn-wNp"/>
@@ -428,11 +397,7 @@
                                 <include reference="75i-g9-xEO"/>
                                 <include reference="upQ-vf-8j0"/>
                                 <include reference="uxu-wH-skz"/>
-                                <include reference="940-uU-58w"/>
-                                <include reference="16s-Uq-kE3"/>
-                                <include reference="xj0-oL-HLZ"/>
                                 <include reference="8tF-fn-J0y"/>
-                                <include reference="UHx-EA-7xt"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="6xa-Kn-wNp"/>
@@ -483,11 +448,7 @@
                         <outlet property="img_tachoScale" destination="n64-wO-yhx" id="djF-au-hJT"/>
                         <outlet property="img_tachoUnit" destination="gxr-Tb-C7I" id="9De-1K-6lF"/>
                         <outlet property="label_gear" destination="uxu-wH-skz" id="oRu-Db-cBA"/>
-                        <outlet property="label_rpm" destination="UHx-EA-7xt" id="Sjd-EM-QCS"/>
                         <outlet property="label_speed" destination="upQ-vf-8j0" id="F8N-lF-Ft1"/>
-                        <outlet property="slider_speedometer" destination="xj0-oL-HLZ" id="KOa-CE-dL5"/>
-                        <outlet property="slider_tachometer" destination="940-uU-58w" id="rNE-r1-Cxj"/>
-                        <outlet property="switch_ignition" destination="16s-Uq-kE3" id="sbx-Rp-R1v"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tIb-ps-1jT" userLabel="First Responder" sceneMemberID="firstResponder"/>

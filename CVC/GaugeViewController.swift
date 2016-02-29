@@ -62,11 +62,6 @@ class GaugeViewController: UIViewController {
     @IBOutlet weak var img_speedUnit: UIImageView!
     @IBOutlet weak var img_needleRight: UIImageView!
     
-    @IBOutlet weak var slider_speedometer: UISlider!
-    @IBOutlet weak var slider_tachometer: UISlider!
-    @IBOutlet weak var switch_ignition: UISwitch!
-    @IBOutlet weak var label_rpm: UILabel!
-    
     @IBOutlet weak var label_speed: UILabel!
     @IBOutlet weak var label_gear: UILabel!
     

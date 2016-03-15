@@ -1,0 +1,40 @@
+//
+//  FAOBD2Communicator.h
+//  CarDash
+//
+//  Created by Jeff McFadden on 7/12/14.
+//  Copyright (c) 2015 Jeff McFadden. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+/*FOUNDATION_EXPORT NSString *const kFAOBD2PIDMassAirFlow;
+FOUNDATION_EXPORT NSString *const kFAOBD2PIDFuelFlow;
+FOUNDATION_EXPORT NSString *const kFAOBD2PIDAirIntakeTemperature;*/
+
+FOUNDATION_EXPORT NSString *const PID_RPM;
+FOUNDATION_EXPORT NSString *const PID_SPEED;
+FOUNDATION_EXPORT NSString *const kFAOBD2PIDDataUpdatedNotification;
+FOUNDATION_EXPORT NSString *const PID_FUEL_LV;
+FOUNDATION_EXPORT NSString *const PID_AMB_AIR_TEMP;
+FOUNDATION_EXPORT NSString *const PID_COOL_TEMP;
+FOUNDATION_EXPORT NSString *const PID_CTRL_MODULE_VOLT;
+
+@interface FAOBD2Communicator : NSObject
+
++ (id)sharedInstance;
+
+- (void)connect;
+- (void)sendInitialATCommands1;
+- (void)sendInitialATCommands2;
+- (void)askForPIDs;
+- (void)streamPIDs;
+
+- (void)startStreaming;
+- (void)restart;
+- (void)stop;
+
+- (void)startDemo;
+- (void)stopDemo;
+
+@end

@@ -56,8 +56,10 @@ a {
 .page-header {
   color: #fff;
   text-align: center;
-  background-color: #159957;
-  background-image: linear-gradient(120deg, #155799, #159957); }
+  background-color: #000000;
+  font-family: Avenir, Helvetica Neue, Arial, sans-serif;
+  /*background-image: linear-gradient(120deg, #155799, #159957); */
+  }
 
 @media screen and (min-width: 64em) {
   .page-header {
@@ -104,6 +106,12 @@ a {
   .project-tagline {
     font-size: 1rem; } }
 
+.main-content {
+	background-color:#000000;
+	position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+	text-align:center;}
 .main-content :first-child {
   margin-top: 0; }
 .main-content img {

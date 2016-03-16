@@ -11,17 +11,8 @@
 </head>
 <body bgcolor="#000000">
 
-<script>
-var video = document.querySelector('video');
-
-window.addEventListener('touchstart', function videoStart() {
-  video.play();
-  this.removeEventListener('touchstart', videoStart);
-});
-</script>
-
 <section class="page-header">
-    <video width="70%" height="auto">
+    <video id="startup" width="70%" height="auto" autoplay>
       <source src="images/startup.mov">
       Your browser does not support the video tag. </video>
   <h1 class="project-name">CVC</h1>
@@ -41,5 +32,15 @@ window.addEventListener('touchstart', function videoStart() {
       </footer> 
   
 </section> -->
+
+<script>
+var video = document.getElementById("startup");
+
+window.addEventListener('touchstart', function videoStart() {
+  video.play();
+  this.removeEventListener('touchstart', videoStart);
+});
+</script>
+
 </body>
 </html>

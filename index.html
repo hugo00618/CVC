@@ -10,8 +10,18 @@
 <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
 </head>
 <body bgcolor="#000000">
+
+<script>
+var video = document.querySelector('video');
+
+window.addEventListener('touchstart', function videoStart() {
+  video.play();
+  this.removeEventListener('touchstart', videoStart);
+});
+</script>
+
 <section class="page-header">
-    <video width="70%" height="auto" autoplay>
+    <video width="70%" height="auto">
       <source src="images/startup.mov">
       Your browser does not support the video tag. </video>
   <h1 class="project-name">CVC</h1>

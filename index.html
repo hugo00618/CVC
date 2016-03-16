@@ -41,6 +41,11 @@ document.addEventListener('touchstart', function videoStart() {
   this.removeEventListener('touchstart', videoStart);
 });
 
+document.addEventListener('scroll', function videoStart() {
+  video.play();
+  this.removeEventListener('scroll', videoStart);
+});
+
 </script>
 
 </body>

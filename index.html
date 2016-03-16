@@ -36,10 +36,11 @@
 <script>
 var video = document.getElementById("startup");
 
-window.addEventListener('touchstart', function videoStart() {
+document.addEventListener('touchstart', function videoStart() {
   video.play();
   this.removeEventListener('touchstart', videoStart);
 });
+
 </script>
 
 </body>

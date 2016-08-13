@@ -1,24 +1,35 @@
 <!DOCTYPE html>
 <html lang="en-us">
-<head>
-<meta charset="UTF-8">
-<title>CVC by hugo00618</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-<link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-</head>
-<body bgcolor="#000000">
 
-<section class="page-header">
-    <video id="startup" width="70%" height="auto" autoplay>
-      <source src="images/startup.mov">
-      Your browser does not support the video tag. </video>
-  <h1 class="project-name">CVC</h1>
-  <h2 class="project-tagline"></h2>
-  <a href="https://github.com/hugo00618/CVC" class="btn">View on GitHub</a> <a href="https://github.com/hugo00618/CVC/zipball/master" class="btn">Download .zip</a> <a href="https://github.com/hugo00618/CVC/tarball/master" class="btn">Download .tar.gz</a> </section>
-<!--<section class="main-content"> 
+<head>
+    <meta charset="UTF-8">
+    <title>CVC by hugo00618</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    
+    <script src="jquery-1.12.4.min.js"></script>
+    <script>
+    window.addEventListener('touchstart', function videoStart() {
+        $('#.startup').play();
+        this.removeEventListener('touchstart', videoStart);
+    });
+    </script>
+</head>
+
+<body style="background-color: #000;">
+    <section class="page-header">
+        <video id="startup" width="70%" autoplay>
+            <source src="images/startup.mov"> Your browser does not support the video tag. </video>
+        <h1 class="project-name">CVC</h1>
+        <!-- <h2 class="project-tagline"></h2> -->
+        <a href="https://github.com/hugo00618/CVC" class="btn">View on GitHub</a>
+        <a href="https://github.com/hugo00618/CVC/zipball/master" class="btn">Download .zip</a>
+        <a href="https://github.com/hugo00618/CVC/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+    <!--<section class="main-content"> 
   <h1>
 <a id="cvc" class="anchor" href="#cvc" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CVC</h1> 
 
@@ -32,16 +43,6 @@
       </footer> 
   
 </section> -->
-
-<script>
-var video = document.getElementById("startup");
-
-window.addEventListener('touchstart', function videoStart() {
-  video.play();
-  this.removeEventListener('touchstart', videoStart);
-});
-
-</script>
-
 </body>
+
 </html>

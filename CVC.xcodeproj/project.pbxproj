@@ -8,6 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		9A35D2641C501D33009A08EA /* FAOBD2Communicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A35D2631C501D33009A08EA /* FAOBD2Communicator.m */; };
+		9A4693DA1D7C0CE500A4D6BB /* GearNumberView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A4693D91D7C0CE500A4D6BB /* GearNumberView.xib */; };
+		9A4693E71D7C175000A4D6BB /* GearNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4693E61D7C175000A4D6BB /* GearNumberView.swift */; };
+		9A4693E91D7C18B100A4D6BB /* NewGearRatioProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4693E81D7C18B100A4D6BB /* NewGearRatioProfileVC.swift */; };
+		9A4693EF1D7D8A1000A4D6BB /* GearNumberEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4693EE1D7D8A1000A4D6BB /* GearNumberEditVC.swift */; };
+		9A47E5F41CA44E4D00B3710E /* AdvancedSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A47E5F31CA44E4D00B3710E /* AdvancedSettingsVC.swift */; };
+		9A47E5F81CA4FE2400B3710E /* GearRatioProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A47E5F71CA4FE2400B3710E /* GearRatioProfile.swift */; };
+		9A47E5FC1CA58D9800B3710E /* VehicleConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A47E5FB1CA58D9800B3710E /* VehicleConfig.swift */; };
+		9A4EC22C1C9A2D4500FD0B31 /* PickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4EC22B1C9A2D4500FD0B31 /* PickerVC.swift */; };
+		9A4EC22E1C9A3E4D00FD0B31 /* NewVehicleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4EC22D1C9A3E4D00FD0B31 /* NewVehicleVC.swift */; };
+		9A52CD3E1CA6538C00EB6053 /* TextFieldVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A52CD3D1CA6538C00EB6053 /* TextFieldVC.swift */; };
+		9A52CD401CA6E8DB00EB6053 /* GearRatioVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A52CD3F1CA6E8DB00EB6053 /* GearRatioVC.swift */; };
+		9A52CD421CA7974400EB6053 /* VehicleDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A52CD411CA7974400EB6053 /* VehicleDetailVC.swift */; };
 		9A7668B91C08CB48008AB296 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7668B81C08CB48008AB296 /* AppDelegate.swift */; };
 		9A7668BE1C08CB48008AB296 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A7668BC1C08CB48008AB296 /* Main.storyboard */; };
 		9A7668C11C08CB48008AB296 /* CVC.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9A7668BF1C08CB48008AB296 /* CVC.xcdatamodeld */; };
@@ -15,8 +27,9 @@
 		9A7668C61C08CB48008AB296 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A7668C41C08CB48008AB296 /* LaunchScreen.storyboard */; };
 		9A7668D11C08CB48008AB296 /* CVCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7668D01C08CB48008AB296 /* CVCTests.swift */; };
 		9A7668DC1C08CB48008AB296 /* CVCUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7668DB1C08CB48008AB296 /* CVCUITests.swift */; };
-		9A7668EC1C08CD78008AB296 /* VehicleListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7668EB1C08CD78008AB296 /* VehicleListTableViewController.swift */; };
-		9A7668EE1C08D007008AB296 /* GaugeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7668ED1C08D007008AB296 /* GaugeViewController.swift */; };
+		9A7668EC1C08CD78008AB296 /* VehicleListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7668EB1C08CD78008AB296 /* VehicleListVC.swift */; };
+		9A7668EE1C08D007008AB296 /* GaugeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7668ED1C08D007008AB296 /* GaugeVC.swift */; };
+		9AF1F0271CA8D08000286041 /* MySplitVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1F0261CA8D08000286041 /* MySplitVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +53,18 @@
 		9A35D2611C501D32009A08EA /* CVC-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CVC-Bridging-Header.h"; sourceTree = "<group>"; };
 		9A35D2621C501D33009A08EA /* FAOBD2Communicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FAOBD2Communicator.h; sourceTree = "<group>"; };
 		9A35D2631C501D33009A08EA /* FAOBD2Communicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FAOBD2Communicator.m; sourceTree = "<group>"; };
+		9A4693D91D7C0CE500A4D6BB /* GearNumberView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GearNumberView.xib; sourceTree = "<group>"; };
+		9A4693E61D7C175000A4D6BB /* GearNumberView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GearNumberView.swift; sourceTree = "<group>"; };
+		9A4693E81D7C18B100A4D6BB /* NewGearRatioProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewGearRatioProfileVC.swift; sourceTree = "<group>"; };
+		9A4693EE1D7D8A1000A4D6BB /* GearNumberEditVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GearNumberEditVC.swift; sourceTree = "<group>"; };
+		9A47E5F31CA44E4D00B3710E /* AdvancedSettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvancedSettingsVC.swift; sourceTree = "<group>"; };
+		9A47E5F71CA4FE2400B3710E /* GearRatioProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GearRatioProfile.swift; sourceTree = "<group>"; };
+		9A47E5FB1CA58D9800B3710E /* VehicleConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VehicleConfig.swift; sourceTree = "<group>"; };
+		9A4EC22B1C9A2D4500FD0B31 /* PickerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerVC.swift; sourceTree = "<group>"; };
+		9A4EC22D1C9A3E4D00FD0B31 /* NewVehicleVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewVehicleVC.swift; sourceTree = "<group>"; };
+		9A52CD3D1CA6538C00EB6053 /* TextFieldVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldVC.swift; sourceTree = "<group>"; };
+		9A52CD3F1CA6E8DB00EB6053 /* GearRatioVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GearRatioVC.swift; sourceTree = "<group>"; };
+		9A52CD411CA7974400EB6053 /* VehicleDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VehicleDetailVC.swift; sourceTree = "<group>"; };
 		9A7668B51C08CB48008AB296 /* CVC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CVC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A7668B81C08CB48008AB296 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9A7668BD1C08CB48008AB296 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -53,8 +78,9 @@
 		9A7668D71C08CB48008AB296 /* CVCUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CVCUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A7668DB1C08CB48008AB296 /* CVCUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CVCUITests.swift; sourceTree = "<group>"; };
 		9A7668DD1C08CB48008AB296 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9A7668EB1C08CD78008AB296 /* VehicleListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VehicleListTableViewController.swift; sourceTree = "<group>"; };
-		9A7668ED1C08D007008AB296 /* GaugeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GaugeViewController.swift; sourceTree = "<group>"; };
+		9A7668EB1C08CD78008AB296 /* VehicleListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VehicleListVC.swift; sourceTree = "<group>"; };
+		9A7668ED1C08D007008AB296 /* GaugeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GaugeVC.swift; sourceTree = "<group>"; };
+		9AF1F0261CA8D08000286041 /* MySplitVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySplitVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +108,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9A4693E51D7C170E00A4D6BB /* GearRatioProfileViews */ = {
+			isa = PBXGroup;
+			children = (
+				9A4693D91D7C0CE500A4D6BB /* GearNumberView.xib */,
+				9A4693E61D7C175000A4D6BB /* GearNumberView.swift */,
+			);
+			name = GearRatioProfileViews;
+			sourceTree = "<group>";
+		};
 		9A7668AC1C08CB48008AB296 = {
 			isa = PBXGroup;
 			children = (
@@ -108,8 +143,20 @@
 				9A35D2621C501D33009A08EA /* FAOBD2Communicator.h */,
 				9A35D2631C501D33009A08EA /* FAOBD2Communicator.m */,
 				9A7668B81C08CB48008AB296 /* AppDelegate.swift */,
-				9A7668EB1C08CD78008AB296 /* VehicleListTableViewController.swift */,
-				9A7668ED1C08D007008AB296 /* GaugeViewController.swift */,
+				9AF1F0261CA8D08000286041 /* MySplitVC.swift */,
+				9A7668EB1C08CD78008AB296 /* VehicleListVC.swift */,
+				9A52CD411CA7974400EB6053 /* VehicleDetailVC.swift */,
+				9A7668ED1C08D007008AB296 /* GaugeVC.swift */,
+				9A4EC22D1C9A3E4D00FD0B31 /* NewVehicleVC.swift */,
+				9A47E5F31CA44E4D00B3710E /* AdvancedSettingsVC.swift */,
+				9A52CD3F1CA6E8DB00EB6053 /* GearRatioVC.swift */,
+				9A4EC22B1C9A2D4500FD0B31 /* PickerVC.swift */,
+				9A52CD3D1CA6538C00EB6053 /* TextFieldVC.swift */,
+				9A47E5FB1CA58D9800B3710E /* VehicleConfig.swift */,
+				9A47E5F71CA4FE2400B3710E /* GearRatioProfile.swift */,
+				9A4693E81D7C18B100A4D6BB /* NewGearRatioProfileVC.swift */,
+				9A4693EE1D7D8A1000A4D6BB /* GearNumberEditVC.swift */,
+				9A4693E51D7C170E00A4D6BB /* GearRatioProfileViews */,
 				9A7668BC1C08CB48008AB296 /* Main.storyboard */,
 				9A7668C21C08CB48008AB296 /* Assets.xcassets */,
 				9A7668C41C08CB48008AB296 /* LaunchScreen.storyboard */,
@@ -201,19 +248,22 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Hugo Yu";
 				TargetAttributes = {
 					9A7668B41C08CB48008AB296 = {
 						CreatedOnToolsVersion = 7.1;
 						DevelopmentTeam = H25L6MP3NS;
+						LastSwiftMigration = 0800;
 					};
 					9A7668CB1C08CB48008AB296 = {
 						CreatedOnToolsVersion = 7.1;
+						LastSwiftMigration = 0800;
 						TestTargetID = 9A7668B41C08CB48008AB296;
 					};
 					9A7668D61C08CB48008AB296 = {
 						CreatedOnToolsVersion = 7.1;
+						LastSwiftMigration = 0800;
 						TestTargetID = 9A7668B41C08CB48008AB296;
 					};
 				};
@@ -246,6 +296,7 @@
 				9A7668C61C08CB48008AB296 /* LaunchScreen.storyboard in Resources */,
 				9A7668C31C08CB48008AB296 /* Assets.xcassets in Resources */,
 				9A7668BE1C08CB48008AB296 /* Main.storyboard in Resources */,
+				9A4693DA1D7C0CE500A4D6BB /* GearNumberView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,11 +321,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A7668EE1C08D007008AB296 /* GaugeViewController.swift in Sources */,
+				9A7668EE1C08D007008AB296 /* GaugeVC.swift in Sources */,
+				9A52CD401CA6E8DB00EB6053 /* GearRatioVC.swift in Sources */,
+				9A4693E71D7C175000A4D6BB /* GearNumberView.swift in Sources */,
 				9A35D2641C501D33009A08EA /* FAOBD2Communicator.m in Sources */,
-				9A7668EC1C08CD78008AB296 /* VehicleListTableViewController.swift in Sources */,
+				9A7668EC1C08CD78008AB296 /* VehicleListVC.swift in Sources */,
+				9A52CD421CA7974400EB6053 /* VehicleDetailVC.swift in Sources */,
+				9A4693EF1D7D8A1000A4D6BB /* GearNumberEditVC.swift in Sources */,
+				9A47E5FC1CA58D9800B3710E /* VehicleConfig.swift in Sources */,
 				9A7668C11C08CB48008AB296 /* CVC.xcdatamodeld in Sources */,
+				9A47E5F41CA44E4D00B3710E /* AdvancedSettingsVC.swift in Sources */,
+				9A4EC22E1C9A3E4D00FD0B31 /* NewVehicleVC.swift in Sources */,
+				9A47E5F81CA4FE2400B3710E /* GearRatioProfile.swift in Sources */,
+				9A4693E91D7C18B100A4D6BB /* NewGearRatioProfileVC.swift in Sources */,
+				9A4EC22C1C9A2D4500FD0B31 /* PickerVC.swift in Sources */,
+				9A52CD3E1CA6538C00EB6053 /* TextFieldVC.swift in Sources */,
 				9A7668B91C08CB48008AB296 /* AppDelegate.swift in Sources */,
+				9AF1F0271CA8D08000286041 /* MySplitVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,8 +405,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -387,8 +452,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -407,6 +474,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -427,6 +495,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CVC/CVC-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
@@ -445,6 +514,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CVC/CVC-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
@@ -457,6 +527,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = info.hugoyu.CVCTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CVC.app/CVC";
 			};
 			name = Debug;
@@ -469,6 +540,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = info.hugoyu.CVCTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CVC.app/CVC";
 			};
 			name = Release;
@@ -480,6 +552,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = info.hugoyu.CVCUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = CVC;
 				USES_XCTRUNNER = YES;
 			};
@@ -492,6 +565,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = info.hugoyu.CVCUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = CVC;
 				USES_XCTRUNNER = YES;
 			};
